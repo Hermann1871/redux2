@@ -29,15 +29,24 @@ const router = createBrowserRouter(
       </>,
       children: [
         {
-          path: '/home',
+          index: true,
           element: <Home />
         },
+        {
+          path: '/prova',
+          element: <Home />
+        },
+        {
+          path: '/registrati',
+          element: <Person />
+        },
+        
 
       ]
     },
     {
       path: '/about',
-      element: <h1>About</h1>
+      element: <h1>About - senza parent</h1>
     }
   ],
 
