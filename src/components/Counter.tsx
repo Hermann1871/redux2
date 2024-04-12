@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
 import { decrement, increment } from "../redux/counterSlice"
+import { State } from "../redux/store"
 
 export const Counter = () => {
     console.log("Render Counter")
-    const count = useSelector((state: any) => state.counter.value)
+    const count = useSelector((state: State) => state.counter.value)
     const theme = useSelector((state: any) => state.theme.value)
     const dispatch = useDispatch()
 
