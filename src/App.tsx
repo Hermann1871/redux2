@@ -1,6 +1,6 @@
 // npm i react-redux @reduxjs/toolkit
 
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Provider, useSelector } from 'react-redux';
@@ -15,7 +15,9 @@ import { Home } from './components/Home';
 import { Navbar } from './components/Navbar';
 import { Test } from './components/Test';
 import { Register } from './components/routes/Register';
+import { AllLanguages, allLanguages } from './lang';
 
+export const LangContext = createContext<AllLanguages>('it')
 
 const router = createBrowserRouter(
   [
@@ -46,7 +48,7 @@ const router = createBrowserRouter(
           path: '/test',
           element: <Test />
         },
-        
+
 
       ]
     },
@@ -62,10 +64,48 @@ const router = createBrowserRouter(
 function App() {
   // const theme = useSelector((state: any) => state.theme.value)
 
+  const [lang, setLang] = useState<AllLanguages>('it')
+  // const switchLang = () => lang ==='it' ? setLang('en') : setLang('it')
+  // const switchLang = () => setLang(lang === 'it' ? 'en' : 'it' )
+  // const switchLang = () => { NN FUNZ
+  //   setLang(lang === 'it' ? 'en' : 'it')
+  //   localStorage.setItem('lang', lang)
+  // }
+  const switchLang = () => {
+    const newLang = lang === 'it' ? 'en' : 'it'
+    setLang(newLang)
+    localStorage.setItem('lang', newLang)
+  }
+  const switchLang2 = (newLang: AllLanguages) => {
+    setLang(newLang)
+    localStorage.setItem('lang', newLang)
+  }
+
+  // const allLanguages: AllLanguages[] = ['it', 'en', 'es']
+  // const allLanguages = Object.keys(lang) as AllLanguages[]
+
   return (
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <LangContext.Provider value={lang}>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+      <button onClick={switchLang}>Cambia lingua {lang}</button>
+      <button disabled={lang === 'it'} onClick={() => switchLang2('it')}>Cambia lingua it</button>
+      <button disabled={lang === 'en'} onClick={() => switchLang2('en')}>Cambia lingua en</button>
+      <button disabled={lang === 'es'} onClick={() => switchLang2('es')}>Cambia lingua es</button>
+
+      <p>Con map</p>
+      {allLanguages.map((item, index) => <button key={index} disabled={lang === item} onClick={() => switchLang2(item)}>{item}</button>)}
+
+
+      <p>Con select</p>
+      <select name="languages" id="languages" onChange={(e: React.ChangeEvent<HTMLSelectElement>) => switchLang2(e.target.value as AllLanguages)}>
+        {allLanguages.map((item, index) => (<option key={index} value={item}>{item}</option>))}
+      </select>
+
+
+
+    </LangContext.Provider>
   );
 }
 

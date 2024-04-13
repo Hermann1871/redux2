@@ -4,6 +4,7 @@ import './Theme.css'
 import './Navbar.css'
 
 import { useSelector } from "react-redux"
+import React from 'react'
 
 export const Navbar = () => {
     const theme = useSelector((state: any) => state.theme.value)
@@ -29,10 +30,10 @@ export const Navbar = () => {
                     <div className='left-section'>
                         <ul>
                             <li><Link className={`${theme}`} style={pathname === '/' ? bold : textColor} to="/">Home</Link><br /></li>
-                            {urls.map(url => {
-                                return <>
+                            {urls.map((url, index) => {
+                                return <React.Fragment key={index}>
                                     <li><Link className={`${theme}`} style={pathname === url ? bold : textColor} to={url}>{url.replace('/', '')}</Link></li>
-                                </>
+                                </React.Fragment>
                             })}
                         </ul>
                     </div>
