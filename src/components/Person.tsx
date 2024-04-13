@@ -10,7 +10,7 @@ export const Person = () => {
 
 
     return (<>
-        <div className={`App ${theme} vp1`} >
+        <div className={`App ${theme}`} >
             <label >Name</label>
             <input onKeyUp={(event) => event.key === 'Enter' && dispatch(setName(event.currentTarget.value))} defaultValue={person.name}></input>
             <label >Surname</label>

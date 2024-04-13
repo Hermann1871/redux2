@@ -13,6 +13,8 @@ import { ShowPerson } from './components/ShowPerson';
 import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Home } from './components/Home';
 import { Navbar } from './components/Navbar';
+import { Test } from './components/Test';
+import { Register } from './components/routes/Register';
 
 
 const router = createBrowserRouter(
@@ -38,7 +40,11 @@ const router = createBrowserRouter(
         },
         {
           path: '/registrati',
-          element: <Person />
+          element: <Register />
+        },
+        {
+          path: '/test',
+          element: <Test />
         },
         
 

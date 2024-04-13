@@ -8,7 +8,7 @@ import { useSelector } from "react-redux"
 export const Navbar = () => {
     const theme = useSelector((state: any) => state.theme.value)
 
-    const urls = ['/registrati', '/prova', '/about'];
+    const urls = ['/registrati', '/prova', '/about', '/test'];
     const bold = { fontWeight: "bold" };
     const textColor = { color: theme === 'light' ? 'black' : 'white' }
 

@@ -3,6 +3,8 @@ import { Counter } from "./Counter"
 import { Person } from "./Person"
 import { ShowPerson } from "./ShowPerson"
 import { Theme } from "./Theme"
+import { Test } from "./Test"
+import { Test2 } from "./Test2"
 
 export const Home = () => {
     const theme = useSelector((state: any) => state.theme.value)
@@ -23,7 +25,8 @@ export const Home = () => {
             <Counter></Counter><br /><br />
             <Theme></Theme><br /><br />
             <Person /><br /><br />
-            <ShowPerson></ShowPerson>
+            <ShowPerson></ShowPerson><br /><br />
+            <Test></Test>
 
 
             {/* </div> */}
