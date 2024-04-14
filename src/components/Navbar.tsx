@@ -9,12 +9,18 @@ import { State } from '../redux/store'
 import { AllLanguages, allLanguages } from '../lang'
 import { LangContext } from '../App'
 
+
+const capitalizeFirstLetter = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+
 export const Navbar = () => {
     const theme = useSelector((state: any) => state.theme.value)
     const person = useSelector((state: State) => state.person.value);
-
     const { pathname } = useLocation();
     const dispatch = useDispatch()
+
     const currentLang = useContext(LangContext)
 
     const urls = ['/registrati', '/prova', '/about', '/test'];
@@ -35,30 +41,41 @@ export const Navbar = () => {
                 </ul> */}
 
                 <div className='navbar'>
+
                     <div className='left-section'>
                         <ul>
+
                             <li><Link className={`${theme}`} style={pathname === '/' ? bold : textColor} to="/">Home</Link><br /></li>
                             {urls.map((url, index) => {
-                                return <React.Fragment key={index}>
-                                    <li><Link className={`${theme}`} style={pathname === url ? bold : textColor} to={url}>{url.replace('/', '')}</Link></li>
-                                </React.Fragment>
+                                return <li key={index}><Link className={`${theme}`} style={pathname === url ? bold : textColor} to={url}>{capitalizeFirstLetter(url.replace('/', ''))}</Link></li>
                             })}
+
+                            {/* {urls.map((url, index) => (
+                                <li key={index}>
+                                    <Link className={`${theme}`} style={pathname === url ? bold : textColor} to={url}>{capitalizeFirstLetter(url.replace('/', ''))}</Link>
+                                </li>
+                            ))} */}
+
                         </ul>
                     </div>
-                    <div className='right-section'>
 
+                    <div className='right-section'>
                         <select
+                            value={currentLang.lang}
                             name="languages"
                             // id="languages-select"
-                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => currentLang.setLang(e.target.value as AllLanguages)}
+                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                                currentLang.setLang(e.target.value as AllLanguages)
+                                localStorage.setItem('lang', e.target.value)
+                            }}
                             style={{ fontWeight: 'bold' }}
 
                         >
                             {allLanguages.map(
                                 (item, index) => (
                                     <option
-                                        // id="languages-option"
-                                        selected={currentLang.lang === item}
+                                        // id="languages-option" deve essere varibiale, ad esempio con key
+                                        // selected={currentLang.lang === item} da warning
                                         key={index}
                                         value={item}
                                         style={{ fontWeight: currentLang.lang === item ? 'bold' : 'normal' }}

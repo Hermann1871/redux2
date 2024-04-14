@@ -45,7 +45,8 @@ export const Input = () => {
     }
 
     return <div>
-        <h1>{word}</h1>
+        <h1>Test useRef - Input.tsx</h1>
+        <h2>{word}</h2>
         {/* <button onClick={()=>setWord(ref.current?.value || "")}>Submit</button> */}
         <button ref={ref3} onClick={changeInput}>Submit</button>
         <input ref={ref} placeholder="Write here"></input>

@@ -1,6 +1,6 @@
 // npm i react-redux @reduxjs/toolkit
 
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Provider, useSelector } from 'react-redux';
@@ -19,12 +19,26 @@ import { AllLanguages, allLanguages } from './lang';
 
 // export const LangContext = createContext<AllLanguages>('it')
 
-export const LangContext = createContext<{ lang: AllLanguages; setLang: React.Dispatch<React.SetStateAction<AllLanguages>> }>({ lang: 'it', setLang: () => {} });
 
-export const setLanguage = (newLang: AllLanguages, setLang: React.Dispatch<React.SetStateAction<AllLanguages>>) => {
-  setLang(newLang);
-  localStorage.setItem('lang', newLang);
-};
+interface LangContextType {
+  lang: AllLanguages;
+  setLang: React.Dispatch<React.SetStateAction<AllLanguages>>;
+}
+
+const storedLang = localStorage.getItem('lang') as AllLanguages
+console.log('STORED LANG', storedLang)
+
+export const LangContext = createContext<LangContextType>({ lang: storedLang, setLang: () => { } });
+
+// INUTILE? ELIMINARE?
+// export const setLanguage = (newLang: AllLanguages, setLang: React.Dispatch<React.SetStateAction<AllLanguages>>) => {
+//   const tempLang = newLang
+//   setLang(tempLang);
+//   localStorage.setItem('lang', tempLang);
+//   console.log("Lingua salvata:", tempLang) // NON STAMPA MAI, INUTILE?
+//   // setLang(newLang);
+//   // localStorage.setItem('lang', newLang);
+// };
 
 const router = createBrowserRouter(
   [
@@ -56,7 +70,15 @@ const router = createBrowserRouter(
           element: <Test />
         },
 
+        {
+          path: '/characters',
+          element: <Test />
 
+        },
+        {
+          path: '/episodes',
+          element: <Test />
+        },
       ]
     },
     {
@@ -80,9 +102,10 @@ function App() {
   //   localStorage.setItem('lang', lang)
   // }
 
-
-
-
+  useEffect(() => {
+    const storedLang = localStorage.getItem('lang');
+    storedLang && setLang(storedLang as AllLanguages);
+  }, []);
 
   const switchLang = () => {
     const newLang = lang === 'it' ? 'en' : 'it'
@@ -101,10 +124,14 @@ function App() {
 
 
   return (
-    <LangContext.Provider value={{lang, setLang}}>
+    <LangContext.Provider value={{ lang, setLang }}>
       <Provider store={store}>
         <RouterProvider router={router} />
       </Provider>
+
+
+      {/* 
+      
       <button onClick={switchLang}>Language switch it - en</button>
       <button disabled={lang === 'it'} onClick={() => switchLang2('it')}>Cambia lingua it</button>
       <button disabled={lang === 'en'} onClick={() => switchLang2('en')}>Cambia lingua en</button>
@@ -135,6 +162,8 @@ function App() {
             </option>)
         )}
       </select>
+      
+      */}
 
 
 

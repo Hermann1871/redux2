@@ -58,10 +58,10 @@ export const Test = () => {
     }
 
     const changeName = () => {
-        if (obj.name === 'Carlo') {
-            obj.name = 'Marco'
+        if (obj.name === 'Armando') {
+            obj.name = 'Vincenzo'
         } else {
-            obj.name = 'Carlo'
+            obj.name = 'Armando'
         }
         setObj({ ...obj })
     }
@@ -75,7 +75,7 @@ export const Test = () => {
     return (<>
         <div className={`App ${theme}`}>
 
-            <h1>Test useReducer</h1>
+            <h1>Test useReducer - Test.tsx</h1>
             <button onClick={() => dispatch({ type: 'reset' })}>Reset</button>
             <button disabled={state.counter <= 0} onClick={() => dispatch({ type: 'decrement' })}>Decrementa</button>
             <button onClick={() => dispatch({ type: 'increment' })}>Incrementa</button>

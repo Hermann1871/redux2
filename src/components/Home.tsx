@@ -22,14 +22,15 @@ export const Home = () => {
             {/* <div> */}
 
 
-            <h1>Redux prova</h1>
-            <Counter></Counter><br /><br />
-            <Theme></Theme><br /><br />
-            <Person /><br /><br />
-            <ShowPerson></ShowPerson><br /><br />
+            <h1>Test Redux - Home.tsx</h1>
+            <Counter></Counter>
+            <Theme></Theme>
+            <Person />
+            <ShowPerson></ShowPerson>
             <Test></Test>
             <Test2></Test2>
             <Input></Input>
+            <br/><br/><br/><br/>
 
 
             {/* </div> */}

@@ -11,6 +11,7 @@ export const Person = () => {
 
     return (<>
         <div className={`App ${theme}`} >
+            <h2>Test Redux - Person.tsx</h2>
             <label >Name</label>
             <input onKeyUp={(event) => event.key === 'Enter' && dispatch(setName(event.currentTarget.value))} defaultValue={person.name}></input>
             <label >Surname</label>
