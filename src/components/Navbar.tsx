@@ -3,17 +3,26 @@ import { ShowPerson } from './ShowPerson'
 import './Theme.css'
 import './Navbar.css'
 
-import { useSelector } from "react-redux"
-import React from 'react'
+import { useDispatch, useSelector } from "react-redux"
+import React, { useContext } from 'react'
+import { toggle } from '../redux/themeSlice'
+import { State } from '../redux/store'
+import { AllLanguages, allLanguages } from '../lang'
+import { LangContext } from '../App'
 
 export const Navbar = () => {
     const theme = useSelector((state: any) => state.theme.value)
-
-    const urls = ['/registrati', '/prova', '/about', '/test'];
-    const bold = { fontWeight: "bold" };
-    const textColor = { color: theme === 'light' ? 'black' : 'white' }
+    const person = useSelector((state: State) => state.person.value);
 
     const { pathname } = useLocation();
+    const dispatch = useDispatch()
+    const currentLang = useContext(LangContext)
+
+    const urls = ['/registrati', '/prova', '/about', '/test'];
+
+    // variabili di stile
+    const bold = { fontWeight: "bold" };
+    const textColor = { color: theme === 'light' ? 'black' : 'white' }
 
     return (
         <div className={`${theme}`}>
@@ -38,7 +47,34 @@ export const Navbar = () => {
                         </ul>
                     </div>
                     <div className='right-section'>
-                        <ShowPerson></ShowPerson>
+
+                        <select
+                            name="languages"
+                            // id="languages-select"
+                            // onChange={(e: React.ChangeEvent<HTMLSelectElement>) => switchLang2(e.target.value as AllLanguages)}
+                            style={{ fontWeight: 'bold' }}
+
+                        >
+                            {allLanguages.map(
+                                (item, index) => (
+                                    <option
+                                        // id="languages-option"
+                                        selected={currentLang === item}
+                                        key={index}
+                                        value={item}
+                                        style={{ fontWeight: currentLang === item ? 'bold' : 'normal' }}
+                                    >
+                                        {item}
+                                    </option>)
+                            )}
+                        </select>
+
+                        <button onClick={() => dispatch(toggle())}>Cambia tema</button>
+                        {/* <ShowPerson></ShowPerson> */}
+                        <span> Ciao {person.name} {person.surname} </span>
+                        {/* Col local storage non si aggiorna se cambiato */}
+                        {/* <span> Ciao {localStorage.getItem('name')} {localStorage.getItem('surname')}</span> */}
+
                     </div>
 
                 </div>

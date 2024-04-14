@@ -75,6 +75,7 @@ function App() {
     const newLang = lang === 'it' ? 'en' : 'it'
     setLang(newLang)
     localStorage.setItem('lang', newLang)
+    // TODO ciclare tra tutte le lingue
   }
   const switchLang2 = (newLang: AllLanguages) => {
     setLang(newLang)
@@ -84,23 +85,43 @@ function App() {
   // const allLanguages: AllLanguages[] = ['it', 'en', 'es']
   // const allLanguages = Object.keys(lang) as AllLanguages[]
 
+  const bold = { fontWeight: "bold" };
+
+
   return (
     <LangContext.Provider value={lang}>
       <Provider store={store}>
         <RouterProvider router={router} />
       </Provider>
-      <button onClick={switchLang}>Cambia lingua {lang}</button>
+      <button onClick={switchLang}>Language switch it - en</button>
       <button disabled={lang === 'it'} onClick={() => switchLang2('it')}>Cambia lingua it</button>
       <button disabled={lang === 'en'} onClick={() => switchLang2('en')}>Cambia lingua en</button>
       <button disabled={lang === 'es'} onClick={() => switchLang2('es')}>Cambia lingua es</button>
 
-      <p>Con map</p>
+      <p>Con button</p>
       {allLanguages.map((item, index) => <button key={index} disabled={lang === item} onClick={() => switchLang2(item)}>{item}</button>)}
 
 
       <p>Con select</p>
-      <select name="languages" id="languages" onChange={(e: React.ChangeEvent<HTMLSelectElement>) => switchLang2(e.target.value as AllLanguages)}>
-        {allLanguages.map((item, index) => (<option key={index} value={item}>{item}</option>))}
+      <select
+        name="languages"
+        // id="languages-select"
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => switchLang2(e.target.value as AllLanguages)}
+        style={{ fontWeight: 'bold' }}
+
+      >
+        {allLanguages.map(
+          (item, index) => (
+            <option
+              // id="languages-option"
+              selected={lang === item}
+              key={index}
+              value={item}
+              style={{ fontWeight: lang === item ? 'bold' : 'normal' }}
+            >
+              {item}
+            </option>)
+        )}
       </select>
 
 
