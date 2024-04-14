@@ -28,4 +28,5 @@ export const lang = {
 // type AllLanguages2 = keyof t1 
 
 export type AllLanguages = keyof typeof lang
+
 export const allLanguages = Object.keys(lang) as AllLanguages[]

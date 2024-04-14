@@ -17,7 +17,14 @@ import { Test } from './components/Test';
 import { Register } from './components/routes/Register';
 import { AllLanguages, allLanguages } from './lang';
 
-export const LangContext = createContext<AllLanguages>('it')
+// export const LangContext = createContext<AllLanguages>('it')
+
+export const LangContext = createContext<{ lang: AllLanguages; setLang: React.Dispatch<React.SetStateAction<AllLanguages>> }>({ lang: 'it', setLang: () => {} });
+
+export const setLanguage = (newLang: AllLanguages, setLang: React.Dispatch<React.SetStateAction<AllLanguages>>) => {
+  setLang(newLang);
+  localStorage.setItem('lang', newLang);
+};
 
 const router = createBrowserRouter(
   [
@@ -61,6 +68,7 @@ const router = createBrowserRouter(
 
 )
 
+
 function App() {
   // const theme = useSelector((state: any) => state.theme.value)
 
@@ -71,6 +79,11 @@ function App() {
   //   setLang(lang === 'it' ? 'en' : 'it')
   //   localStorage.setItem('lang', lang)
   // }
+
+
+
+
+
   const switchLang = () => {
     const newLang = lang === 'it' ? 'en' : 'it'
     setLang(newLang)
@@ -85,11 +98,10 @@ function App() {
   // const allLanguages: AllLanguages[] = ['it', 'en', 'es']
   // const allLanguages = Object.keys(lang) as AllLanguages[]
 
-  const bold = { fontWeight: "bold" };
 
 
   return (
-    <LangContext.Provider value={lang}>
+    <LangContext.Provider value={{lang, setLang}}>
       <Provider store={store}>
         <RouterProvider router={router} />
       </Provider>

@@ -1,5 +1,4 @@
 import { Link, useLocation } from 'react-router-dom'
-import { ShowPerson } from './ShowPerson'
 import './Theme.css'
 import './Navbar.css'
 
@@ -51,7 +50,7 @@ export const Navbar = () => {
                         <select
                             name="languages"
                             // id="languages-select"
-                            // onChange={(e: React.ChangeEvent<HTMLSelectElement>) => switchLang2(e.target.value as AllLanguages)}
+                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => currentLang.setLang(e.target.value as AllLanguages)}
                             style={{ fontWeight: 'bold' }}
 
                         >
@@ -59,10 +58,10 @@ export const Navbar = () => {
                                 (item, index) => (
                                     <option
                                         // id="languages-option"
-                                        selected={currentLang === item}
+                                        selected={currentLang.lang === item}
                                         key={index}
                                         value={item}
-                                        style={{ fontWeight: currentLang === item ? 'bold' : 'normal' }}
+                                        style={{ fontWeight: currentLang.lang === item ? 'bold' : 'normal' }}
                                     >
                                         {item}
                                     </option>)
